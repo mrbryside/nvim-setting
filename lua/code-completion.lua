@@ -181,26 +181,27 @@ cmp.setup {
     }),
   },
   formatting = {
-    fields = { "kind", "abbr", "menu" },
+    fields = { "menu", "abbr", "kind" },
     format = function(entry, vim_item)
       -- Kind icons
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       vim_item.menu = ({
-        luasnip = "[Snippet]",
-        buffer = "[Buffer]",
         path = "[Path]",
+        nvim_lsp = "[Lsp]",
+        buffer = "[Buffer]",
+        luasnip = "[Snippet]",
       })[entry.source.name]
       return vim_item
     end,
   },
   sources = {
-    { name = "luasnip" },
-    { name = "buffer" },
     { name = "path" },
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help'}, 
     { name = 'nvim_lua'},
+    { name = "buffer" },
+    { name = "luasnip" },
     -- { name = 'vsnip' },
   },
   confirm_opts = {
@@ -208,6 +209,7 @@ cmp.setup {
     select = false,
   },
   window = {
+    completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
   },
   experimental = {
